@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Printer, Download, Mail, Phone, MapPin, Github, Linkedin, ExternalLink, HardDrive } from 'lucide-react';
