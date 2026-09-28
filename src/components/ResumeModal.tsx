@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Printer, Download, Mail, Phone, MapPin, Github, Linkedin, ExternalLink } from 'lucide-react';
+import { X, Printer, Download, Mail, Phone, MapPin, Github, Linkedin, ExternalLink, HardDrive } from 'lucide-react';
 import { PERSONAL_DETAILS, EXPERIENCES, PROJECTS, SKILL_CATEGORIES, EDUCATION } from '../data/portfolioData';
 
 interface ResumeModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onOpenDrive?: () => void;
 }
 
-export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
+export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose, onOpenDrive }) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -51,6 +52,18 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
             </div>
 
             <div className="flex items-center gap-2">
+              {onOpenDrive && (
+                <button
+                  onClick={() => {
+                    onClose();
+                    onOpenDrive();
+                  }}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-emerald-300 bg-emerald-950/70 hover:bg-emerald-900/80 rounded-lg border border-emerald-800 transition-colors cursor-pointer"
+                >
+                  <HardDrive className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Save to Google Drive</span>
+                </button>
+              )}
               <button
                 onClick={handlePrint}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-200 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-700 transition-colors cursor-pointer"

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, FileText, Send, Type, Check } from 'lucide-react';
+import { Menu, X, FileText, Send, Type, Check, HardDrive } from 'lucide-react';
 import { PERSONAL_DETAILS } from '../data/portfolioData';
 
 interface NavbarProps {
   onOpenResume: () => void;
   onOpenContact: () => void;
+  onOpenDrive?: () => void;
 }
 
 export type FontTheme = 'neo-grotesque' | 'editorial-syne' | 'geometric-urbanist';
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenResume, onOpenContact }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenResume, onOpenContact, onOpenDrive }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [fontMenuOpen, setFontMenuOpen] = useState(false);
@@ -159,6 +160,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume, onOpenContact }) =
               </AnimatePresence>
             </div>
 
+            {onOpenDrive && (
+              <button
+                onClick={onOpenDrive}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-slate-300 bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 rounded-lg transition-all cursor-pointer"
+                title="Google Drive Cloud Hub"
+              >
+                <HardDrive className="w-3.5 h-3.5 text-emerald-400" />
+                <span className="hidden xl:inline text-[11px]">Drive</span>
+              </button>
+            )}
+
             <button
               onClick={onOpenResume}
               className="inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold text-slate-200 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/70 rounded-lg transition-all hover:border-slate-500 active:scale-95 whitespace-nowrap cursor-pointer"
@@ -250,6 +262,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume, onOpenContact }) =
             </div>
 
             <div className="pt-3 border-t border-slate-800/80 flex flex-col gap-2">
+              {onOpenDrive && (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenDrive();
+                  }}
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-semibold text-emerald-300 bg-slate-900 rounded-lg border border-emerald-800/60 hover:bg-slate-800 transition-colors"
+                >
+                  <HardDrive className="w-4 h-4 text-emerald-400" />
+                  <span>Google Drive Cloud Hub</span>
+                </button>
+              )}
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);

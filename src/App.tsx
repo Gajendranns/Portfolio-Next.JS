@@ -9,6 +9,7 @@ import { Skills } from './components/Skills';
 import { Education } from './components/Education';
 import { ContactSection } from './components/ContactSection';
 import { ResumeModal } from './components/ResumeModal';
+import { DriveModal } from './components/DriveModal';
 import { Footer } from './components/Footer';
 import { CursorSpotlight, ScrollProgressBar } from './components/CursorSpotlight';
 import { AnimatedMarquee } from './components/AnimatedMarquee';
@@ -17,6 +18,7 @@ import { Project } from './types';
 export default function App() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [resumeModalOpen, setResumeModalOpen] = useState(false);
+  const [driveModalOpen, setDriveModalOpen] = useState(false);
   const [activeLabDemo, setActiveLabDemo] = useState<string>('crypto-swap');
 
   const handleOpenLab = (demoType?: string) => {
@@ -55,6 +57,7 @@ export default function App() {
       <Navbar
         onOpenResume={() => setResumeModalOpen(true)}
         onOpenContact={handleOpenContact}
+        onOpenDrive={() => setDriveModalOpen(true)}
       />
 
       {/* Main Content Sections */}
@@ -136,6 +139,13 @@ export default function App() {
       <ResumeModal
         isOpen={resumeModalOpen}
         onClose={() => setResumeModalOpen(false)}
+        onOpenDrive={() => setDriveModalOpen(true)}
+      />
+
+      {/* Google Drive Workspace Hub Modal */}
+      <DriveModal
+        isOpen={driveModalOpen}
+        onClose={() => setDriveModalOpen(false)}
       />
     </div>
   );
