@@ -86,11 +86,12 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject, onOpenLab }
           {filteredProjects.map((project, idx) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -6, transition: { duration: 0.25, ease: 'easeOut' } }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="group flex flex-col bg-slate-900/80 rounded-2xl border border-slate-800 hover:border-indigo-500/50 transition-all duration-300 overflow-hidden shadow-xl hover:shadow-indigo-950/20"
+              transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="group flex flex-col bg-slate-900/80 rounded-2xl border border-slate-800 hover:border-indigo-500/60 transition-colors duration-300 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-indigo-950/30"
             >
               {/* Media Thumbnail Container with zero broken images policy & hover zoom */}
               <div

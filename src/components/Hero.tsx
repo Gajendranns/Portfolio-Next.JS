@@ -168,20 +168,39 @@ this.socket.fromEvent<OrderDepthUpdate>('depthUpdate')
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5"
+            className="lg:col-span-5 relative"
           >
-            <div className="relative rounded-2xl bg-slate-900/90 border border-slate-800 shadow-2xl shadow-black/60 overflow-hidden">
+            {/* Smooth Floating Badges */}
+            <motion.div
+              animate={{ y: [-6, 6, -6] }}
+              transition={{ repeat: Infinity, duration: 4.5, ease: 'easeInOut' }}
+              className="absolute -top-4 -left-4 z-20 hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 backdrop-blur-md border border-indigo-500/40 shadow-xl text-xs font-mono text-indigo-300"
+            >
+              <Cpu className="w-3.5 h-3.5 text-indigo-400 animate-pulse" />
+              <span>Angular 21+ Signals</span>
+            </motion.div>
+
+            <motion.div
+              animate={{ y: [6, -6, 6] }}
+              transition={{ repeat: Infinity, duration: 5, ease: 'easeInOut' }}
+              className="absolute -bottom-4 -right-4 z-20 hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/90 backdrop-blur-md border border-emerald-500/40 shadow-xl text-xs font-mono text-emerald-300"
+            >
+              <Zap className="w-3.5 h-3.5 text-emerald-400" />
+              <span>MetaMask · Web3.js</span>
+            </motion.div>
+
+            <div className="relative rounded-2xl bg-slate-900/90 border border-slate-800 shadow-2xl shadow-black/60 overflow-hidden group">
               {/* Header image banner with measured contrast scrim */}
               <div className="relative h-48 sm:h-56 w-full overflow-hidden">
                 <img
                   src="/src/assets/images/hero_developer_workspace_1790611849130.jpg"
                   alt="Developer high-performance engineering workstation"
-                  className="w-full h-full object-cover object-center filter brightness-90 hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover object-center filter brightness-90 group-hover:scale-105 transition-transform duration-700 ease-out"
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
                 <div className="absolute top-3 left-3 flex items-center gap-2 px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-[11px] font-mono text-slate-200">
-                  <Terminal className="w-3 h-3 text-indigo-400" />
+                  <Terminal className="w-3 h-3 text-indigo-400 animate-pulse" />
                   <span>runtime.env // production</span>
                 </div>
               </div>
@@ -198,9 +217,9 @@ this.socket.fromEvent<OrderDepthUpdate>('depthUpdate')
                   <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800 text-xs">
                     <button
                       onClick={() => setActiveSnippetTab('signals')}
-                      className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
+                      className={`px-2.5 py-1 rounded-md font-medium transition-all duration-200 cursor-pointer ${
                         activeSnippetTab === 'signals'
-                          ? 'bg-indigo-600 text-white'
+                          ? 'bg-indigo-600 text-white shadow-sm'
                           : 'text-slate-400 hover:text-slate-200'
                       }`}
                     >
@@ -208,9 +227,9 @@ this.socket.fromEvent<OrderDepthUpdate>('depthUpdate')
                     </button>
                     <button
                       onClick={() => setActiveSnippetTab('web3')}
-                      className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
+                      className={`px-2.5 py-1 rounded-md font-medium transition-all duration-200 cursor-pointer ${
                         activeSnippetTab === 'web3'
-                          ? 'bg-indigo-600 text-white'
+                          ? 'bg-indigo-600 text-white shadow-sm'
                           : 'text-slate-400 hover:text-slate-200'
                       }`}
                     >
@@ -218,9 +237,9 @@ this.socket.fromEvent<OrderDepthUpdate>('depthUpdate')
                     </button>
                     <button
                       onClick={() => setActiveSnippetTab('sockets')}
-                      className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
+                      className={`px-2.5 py-1 rounded-md font-medium transition-all duration-200 cursor-pointer ${
                         activeSnippetTab === 'sockets'
-                          ? 'bg-indigo-600 text-white'
+                          ? 'bg-indigo-600 text-white shadow-sm'
                           : 'text-slate-400 hover:text-slate-200'
                       }`}
                     >
@@ -231,20 +250,26 @@ this.socket.fromEvent<OrderDepthUpdate>('depthUpdate')
 
                 {/* Code Terminal View */}
                 <div className="bg-[#05070b] rounded-xl p-3.5 border border-slate-800/90 font-mono text-xs overflow-x-auto text-slate-300 leading-relaxed max-h-52">
-                  <pre className="whitespace-pre">
+                  <motion.pre
+                    key={activeSnippetTab}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="whitespace-pre"
+                  >
                     <code>{codeSnippets[activeSnippetTab]}</code>
-                  </pre>
+                  </motion.pre>
                 </div>
 
                 {/* Micro tech pills replaced with clean unboxed text metadata */}
                 <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1">
                   <span className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
                     Verified on Angular 21.x &amp; Ethers/Web3
                   </span>
                   <button
                     onClick={onOpenLab}
-                    className="text-indigo-400 hover:text-indigo-300 font-medium inline-flex items-center gap-1 cursor-pointer"
+                    className="text-indigo-400 hover:text-indigo-300 font-medium inline-flex items-center gap-1 cursor-pointer transition-transform hover:translate-x-0.5"
                   >
                     <span>Test in Sandbox</span>
                     <ArrowRight className="w-3 h-3" />

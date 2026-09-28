@@ -46,7 +46,7 @@ git commit -m "feat: complete animated portfolio with Web3 lab and skills matrix
 git branch -M main
 
 # Link your GitHub remote (replace with your repo URL)
-git remote add origin https://github.com/gajendran-ns/portfolio.git
+git remote add origin https://github.com/Gajendranns/portfolio.git
 
 # Push code to GitHub
 git push -u origin main
